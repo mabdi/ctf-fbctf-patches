@@ -22,6 +22,7 @@ lets patching:
   cp lang_fa.php /var/www/fbctf/src/languages/lang_fa.php
   cp -r fa /var/www/fbctf/src/static/css/locals/
   cp RedirectController.php /var/www/fbctf/src/controller/
+  cp ExtraUtils.php /var/www/fbctf/src/
 
   edit /etc/hhvm/server.ini and uncomment line:  "; hhvm.repo.authoritative = true"
   service hhvm restart
