@@ -3,6 +3,8 @@ Patches should be applied to fbctf
 make a new lxc and attach to it.
   apt-get update
   apt-get install git
+  echo "Asia/Tehran" | sudo tee /etc/timezone
+  dpkg-reconfigure --frontend noninteractive tzdata
 
 first install fbctf:
   cd /root
@@ -29,3 +31,13 @@ lets patching:
   service memcached start
 
 
+making production:
+  @look https://github.com/facebook/fbctf/issues/505
+  cat /etc/hhvm/server.ini | sed "s|/var/run/hhvm/hhvm.hhbc|/var/cache/hhvm/hhvm.hhbc|g" | sudo tee /etc/hhvm/server.ini   
+  rm /var/cache/hhvm/hhvm.hhbc
+  uncomment hhvm.repo.authoritative from /etc/hhvm/server.ini
+  hhvm-repo-mode enable /var/www/fbctf
+  chown www-data:www-data /var/cache/hhvm/hhvm.hhbc
+  service memcached start
+  service hhvm restart
+  service nginx restart
